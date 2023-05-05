@@ -84,7 +84,17 @@ const App = () => {
         <Screen value = {state.text} direction = 'ltr'/>
         <Screen value = {state.second} direction = 'ltr'/>
         <Buttons value = { 'AC' } color={'but but-grey'} onPress = { () => {
-          return '';
+          setState(state => ({
+            ...state,
+            second: '0',
+            first: 0,
+            text: '',
+            change: 0,
+            add: false,
+            sub: false,
+            div: false,
+            mul: false
+          }));
         }} />
         <Buttons value = { '+/-' } color={'but but-grey'} onPress = { () => {
           setState(state=> ({
@@ -286,13 +296,25 @@ const App = () => {
           }) );
         }} />
         <Buttons value = { 'C' } color={'but but-grey'} onPress = { () => {
-          setState(state => ({
-            ...state,
-            second: '0',
-            first: 0,
-            text: '',
-            change: 0
-          }));
+          if(state.change === 0)
+          {
+            setState(state => ({
+              ...state,
+              second: state.second.substring(0, state.second.length-1)
+            }));
+          }else{
+            setState(state => ({
+              ...state,
+              second: '0',
+              text: '',
+              change: 0,
+              first: 0,
+              add: false,
+              sub: false,
+              div: false,
+              mul: false
+            }));
+          }
         }} />
         <Buttons value = { 0 } color={'but but-grey'} onPress = { () => {
           if(state.second === '0')
